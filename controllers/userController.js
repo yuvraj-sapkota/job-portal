@@ -1,6 +1,6 @@
 const User = require("../models/userSchema");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
   try {
@@ -67,7 +67,7 @@ const login = async (req, res) => {
     if (role !== user.role) {
       return res.status(400).json({
         message: "Account do not exist with current role",
-        success: falsel,
+        success: false,
       });
     }
     const tokenData = {
