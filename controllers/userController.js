@@ -255,4 +255,49 @@ const logout = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  try {
+    const { fullname, email, phoneNumber, bio, skills } = req.body;
+    const file = req.file;
+    if (!fullName || !email || !phoneNumber || !bio || !skills) {
+      return res
+        .status(400)
+        .json({ message: "Please fill all the field", success: false });
+    }
+
+    const skillsArray = skills.split(",");
+    const userId = req.id;
+
+    let user = await User.findById(userId);
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "User not found", success: false });
+    }
+
+    (user.fullname = fullname),
+      (user.email = email),
+      (user.phoneNumber = phoneNumber),
+      (user.profile.bio = bio),
+      (user.profile.skills = skillsArray);
+
+    await user.save();
+
+    user = {
+      _id: user._id,
+      fullName: user.fullName,
+      phoneNumber: user.phoneNumber,
+      email: user.email,
+      role: user.role,
+      profile: user.profile,
+    };
+
+    return res
+      .status(200)
+      .json({ message: "Profile updated successfully", user, success: true });
+  } catch (error) {
+    console.log("Error while updating profile", error);
+  }
+};
+
 module.exports = { register, login, logout };
