@@ -1,4 +1,5 @@
 const express = require("express");
+const isAuthenticated = require("../middlewares/isAuthenticated");
 const {
   register,
   login,
@@ -15,7 +16,7 @@ const router = express.Router();
 
 router.post("/register", register);
 router.post("/login", login);
-router.post("/updateprofile", updateProfile);
+router.post("/updateprofile", isAuthenticated, updateProfile);
 router.post("/logout", logout);
 
 module.exports = router;
