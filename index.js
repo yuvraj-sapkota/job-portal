@@ -26,5 +26,5 @@ connectDB();
 app.use("/api/v1/user", userRouter);
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server is running on the port number ${process.env.PORT}`);
+  console.log(`Server is running on the defined port ${process.env.PORT}`);
 });
