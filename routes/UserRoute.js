@@ -14,7 +14,7 @@ const router = express.Router();
 // router.route("/login ").post(login);
 // router.route("/profile/update ").post(isAuthenticated, updateProfile);
 
-router.post("/register", register);
+// router.post("/register", register);
 router.post("/login", login);
 router.post("/updateprofile", isAuthenticated, updateProfile);
 router.post("/logout", logout);
